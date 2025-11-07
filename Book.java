@@ -48,12 +48,15 @@ public class Book{
           }
         }
       }
-      // caps no punc
+      // caps no punc : Hae-Llo -> Ae-Llohay
       if(endPunctuation(word) == -1 && Character.isUpperCase(first) == true){
-        word = word.toLowerCase();
+
         for(int i = 0; i< word.length(); i++){
           if(vowels.indexOf(word.substring(i,i+1))>= 0 ){
             String left = word.substring(0,i);
+            String first_of_left = left.substring(0,1);
+            first_of_left = first_of_left.toLowerCase();
+            left = first_of_left + word.substring(1,i);
             String right = word.substring(i);
             String fist_letter = right.substring(0, 1);
             fist_letter = fist_letter.toUpperCase();
@@ -79,15 +82,18 @@ public class Book{
         }
       }
 
-      //caps and punc
+      //caps and punc  : Hae-Llo!! -> Ae-Llohay!!
       if(endPunctuation(word) != -1 && Character.isUpperCase(first) == true){
-        word = word.toLowerCase();
+
         String pucn = word.substring(endPunctuation(word));
         String only_word = word.substring(0,endPunctuation(word));
 
         for(int i = 0; i< only_word.length(); i++){
           if(vowels.indexOf(only_word.substring(i,i+1))>= 0 ){
             String left = only_word.substring(0,i);
+            String first_of_left = left.substring(0,1);
+            first_of_left = first_of_left.toLowerCase();
+            left = first_of_left + word.substring(1,i);
             String right = only_word.substring(i);
             String fist_letter = right.substring(0, 1);
             fist_letter = fist_letter.toUpperCase();
@@ -98,8 +104,6 @@ public class Book{
       }
       
       return newWord;
-
-
 
   }//end of translate
 
@@ -155,167 +159,34 @@ public class Book{
 
   public String translateWord(String word)    //to share with class
   {
-    String convertedWord = "";
-
-    return convertedWord;
+    return pigLatin(word);
   }
 
-
-
-  public String translateSentence(String sentence)
-  {
+  public String translateSentence(String sentence){
     String retSentence = "";
+    int index = 0;
+    int i = 0;
+    int len = sentence.length();
 
+    while(i<len){
+      if(sentence.substring(i, i+1).equals(" ")){
+        retSentence = retSentence + " ";
+        i++;
+        continue;
+      }
+      String new_word = "";
+      for(int j = i;j<len;j++){
+        if (sentence.substring(j,j+1).equals(" ")) {
+          break;
+        }
+        i++;
+        new_word = new_word + sentence.substring(j,j+1);
+      }
+      if(!new_word.equals("")){
+        String word = translateWord(new_word);
+        retSentence = retSentence + word;
+      }
+    }
     return retSentence;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //   if(Character.isUpperCase(first)){
-        
-    //     //vowel
-    //     for(int i = 0; i< word.length(); i++){
-
-    //     }
-
-    //     // not a vauol
-    //     String front_letter = word.substring(0, 1);
-    //     front_letter = front_letter.toLowerCase();
-    //     String rest = word.substring(1);
-    //     String final_word = rest+ front_letter + "ay";
-    //     String first_final =  final_word.substring(0, 1);
-    //     first_final = first_final.toUpperCase();
-    //     final_word = first_final + final_word.substring(1);
-    //     return final_word;
-
-
-    //   }
-    //   //lower case i guess 
-    //   if(word.startsWith("a") || word.startsWith("e")|| word.startsWith("i")||word.startsWith("o")||word.startsWith("u")){
-    //     String front_letter = word.substring(0, 1);
-    //     String rest = word.substring(1);
-    //     return rest+ front_letter + "yay";
-    //   }
-    //   // not a vauol 
-    //   String front_letter = word.substring(0, 1);
-    //   String rest = word.substring(1);
-    //   return rest+ front_letter + "ay";
-    // }//end of non punct
-
-
-    // //has punctiouation
-    // if(Character.isUpperCase(first)){
-        
-    //   if(word.startsWith("A") || word.startsWith("E")|| word.startsWith("I")||word.startsWith("O")||word.startsWith("U")){
-        
-    //     String end_punctuation = word.substring(endPunctuation(word));
-    //     String rest = word.substring(0,endPunctuation(word));
-    //     return rest + "yay" + end_punctuation;
-    //   }
-
-    //   // not a vauol
-    //   String front_letter = word.substring(0, 1);
-    //   front_letter = front_letter.toLowerCase();
-    //   String rest = word.substring(1,endPunctuation(word));
-    //   String end_punctuation = word.substring(endPunctuation(word));
-    //   String final_word = rest+ front_letter + "ay";
-    //   String first_final =  final_word.substring(0, 1);
-    //   first_final = first_final.toUpperCase();
-    //   final_word = first_final + final_word.substring(1, endPunctuation(word)) + "ay" + end_punctuation;
-    //   return final_word;
-
-
-    // }
-    // //lower case i guess 
-    // if(word.startsWith("a") || word.startsWith("e")|| word.startsWith("i")||word.startsWith("o")||word.startsWith("u")){
-    //   String front_letter = word.substring(0, 1);
-    //   String end_punctuation = word.substring(endPunctuation(word));
-    //   String rest = word.substring(1,endPunctuation(word));
-    //   return rest+ front_letter + "yay" + end_punctuation;
-    // }
-    // // not a vauol 
-    // String front_letter = word.substring(0, 1);
-    // String end_punctuation = word.substring(endPunctuation(word));
-    // String rest = word.substring(1,endPunctuation(word));
-    // return rest+ front_letter + "ay" + end_punctuation;
-    
-
-
-//end of translate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
