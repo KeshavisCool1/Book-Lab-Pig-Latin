@@ -1,6 +1,8 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import java.util.Scanner;
+import java.net.URL;
+import java.io.IOException;
 
 //A few assumptions.......
 
@@ -13,6 +15,33 @@ import java.util.regex.Pattern;
 import java.text.CharacterIterator;
 
 public class Book{
+
+  private int count = 0;
+
+  public void readBook(String link){
+    
+    try{
+      URL url = new URL(link);
+      Scanner s = new Scanner(url.openStream());
+
+      while(s.hasNext()){
+        String text = s.nextLine();
+
+        // String[] words = text.split(" ");
+        // count = count + words.length;
+
+        text = translateSentence(text);
+        System.out.println(text);
+      }
+      s.close();
+      System.out.println(count);
+    }
+    catch(IOException e){
+      System.out.println("Error in opening scanner");
+    }
+  }
+
+
   public String pigLatin(String word){
 
     String newWord = "";
@@ -159,6 +188,7 @@ public class Book{
 
   public String translateWord(String word)    //to share with class
   {
+    count++;
     return pigLatin(word);
   }
 
